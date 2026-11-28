@@ -19,7 +19,7 @@ import { findByCodeLazy, findByPropsLazy, findCssClassesLazy } from "@webpack";
 import { ContextMenuApi, GuildRoleStore, Menu, PermissionStore, Popout, React, RoleMemberPopout, useRef, useState } from "@webpack/common";
 
 const GuildSettingsActions = findByPropsLazy("open", "selectRole", "updateGuild");
-const MenuItemClasses = findCssClassesLazy("item", "labelContainer", "colorDefault", "label", "iconContainer");
+const MenuItemClasses = findCssClassesLazy("item", "labelContainer", "colorDefault", "label", "iconContainerLeft", "icon");
 const loadRoleMembers = findByCodeLazy(".GUILD_ROLE_MEMBER_IDS(", "requestMembersById");
 
 const DeveloperMode = getUserSettingLazy("appearance", "developerMode")!;
@@ -66,7 +66,7 @@ function AppearanceIcon() {
 
 function RoleMembersIcon() {
     return (
-        <svg width="18" height="18" viewBox="0 0 24 24">
+        <svg className={MenuItemClasses.icon} width="18" height="18" viewBox="0 0 24 24">
             <path fill="currentColor" d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM11.53 11A9.53 9.53 0 0 0 2 20.53c0 .81.66 1.47 1.47 1.47h.22c.24 0 .44-.17.5-.4.29-1.12.84-2.17 1.32-2.91.14-.21.43-.1.4.15l-.26 2.61c-.02.3.2.55.5.55h11.7a.5.5 0 0 0 .5-.55l-.27-2.6c-.02-.26.27-.37.41-.16.48.74 1.03 1.8 1.32 2.9.06.24.26.41.5.41h.22c.81 0 1.47-.66 1.47-1.47A9.53 9.53 0 0 0 12.47 11h-.94Z" />
         </svg>
     );
@@ -163,11 +163,10 @@ export function buildExtraRoleContextMenuItems(role: Role, guild: Guild, popoutR
                                 role="menuitem"
                                 {...popoutProps}
                             >
-                                <div className={MenuItemClasses.label}>View Role Members</div>
-                                {/* FIXME: update to new icon style */}
-                                <div className={MenuItemClasses.iconContainer}>
+                                <div className={MenuItemClasses.iconContainerLeft} aria-hidden="true">
                                     <RoleMembersIcon />
                                 </div>
+                                <div className={MenuItemClasses.label}>View Role Members</div>
                             </div>
                         )}
                     </Popout>
